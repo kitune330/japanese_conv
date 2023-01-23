@@ -4,13 +4,12 @@ defmodule JapaneseConv do
   """
 
   @doc """
-  Japanese kana char full to half.
+  カナ、数字、アルファベットの全角を半角に変換
 
   ## Examples
 
-      iex> JapaneseConv.full2Half("アイウエオ")
-      
-
+      iex> JapaneseConv.full2Half("アイウエオ０Ａｂ")
+    
   """
   def full2Half(str) do
     charList = String.graphemes(str)
@@ -21,6 +20,15 @@ defmodule JapaneseConv do
     |> List.to_string()
   end
 
+  @doc """
+  数字の全角を半角に変換
+
+  ## Examples
+
+      iex> JapaneseConv.full2Half("０１２３")
+      
+
+  """
   def full2HalfNum(str) do
     charList = String.graphemes(str)
     for (char <- charList) do
@@ -30,7 +38,15 @@ defmodule JapaneseConv do
     |> List.to_string()
   end
 
+  @doc """
+  カナ、数字、アルファベットの半角角を全角に変換
 
+  ## Examples
+
+      iex> JapaneseConv.full2Half("ｱｲｳｴｵ0Ab")
+      
+
+  """
   def half2Full(str) do
     charList = String.graphemes(str)
 
