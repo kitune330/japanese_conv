@@ -4,6 +4,25 @@ defmodule JapaneseConv do
   """
 
   @doc """
+  カナを全角
+  数字、アルファベットを半角に変換
+
+  ## Examples
+
+      iex> JapaneseConv.standardConv("アイウエオ０Ａｂ")
+    
+  """
+  def standardConv(str) do
+    charList = String.graphemes(str)
+    for (char <- charList) do
+            c = Map.get(standardCharSet(), char)
+            if is_nil(c) do char else c end
+        end
+    |> List.to_string()
+  end
+
+
+  @doc """
   カナ、数字、アルファベットの全角を半角に変換
 
   ## Examples
@@ -49,13 +68,19 @@ defmodule JapaneseConv do
   """
   def half2Full(str) do
     charList = String.graphemes(str)
-
     for (char <- charList) do
-      
       c = revCharSet()[char]
       if is_nil(c) do char else c end
     end
     |> List.to_string()
+  end
+
+
+  defp standardCharSet() do
+    Map.new()
+    |> Map.merge(revKanaSet())
+    |> Map.merge(alphaSet())
+    |> Map.merge(numberSet())
   end
 
   defp charSet() do
@@ -229,6 +254,13 @@ defmodule JapaneseConv do
 
   defp revCharSet() do
     for {k, v} <- charSet() do
+      {v,k}
+    end
+    |> Enum.into(%{})
+  end
+
+  defp revKanaSet() do
+    for {k, v} <- kanaSet() do
       {v,k}
     end
     |> Enum.into(%{})

@@ -2,6 +2,16 @@ defmodule JapaneseConvTest do
   use ExUnit.Case
   doctest JapaneseConv
 
+  test "standard conversion" do
+    result = JapaneseConv.standardConv("ＡＢｃデ５")
+    assert "ABcデ5" == result
+    
+    result = JapaneseConv.standardConv("AＡBc")
+    assert "AABc" == result
+
+  end
+
+
   test "full to half" do
 
     result = JapaneseConv.full2Half("アイウエオ")
@@ -37,6 +47,6 @@ defmodule JapaneseConvTest do
 
     result = JapaneseConv.half2Full("がｷﾞｸﾞげご")
     assert "がギグげご" == result
-    IO.inspect(result)
+    
   end
 end
