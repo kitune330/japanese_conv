@@ -10,7 +10,7 @@ by adding `japanese_conv` to your list of dependencies in `mix.exs`:
 ```elixir
 def deps do
   [
-    {:japanese_conv, "~> 0.1.0"}
+    {:japanese_conv, "~> 0.2.0"}
   ]
 end
 ```
